@@ -16,7 +16,9 @@ export function AppShell({
           <BrandMark compact />
         </div>
       </div>
-      <main className="relative mx-auto -mt-4 w-full max-w-md px-4 pb-28">{children}</main>
+      <main className="relative mx-auto w-full max-w-md px-4 pb-28 pt-4">
+  {children}
+</main>
       <BottomNav role={user.role} />
     </div>
   );
