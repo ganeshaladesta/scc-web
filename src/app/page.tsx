@@ -160,7 +160,7 @@ export default async function Home() {
     user.fullName?.trim() || (isAdmin ? "SCC Admin" : "Korsec");
 
   return (
-    <div className="pb-6">
+    <div className="px-4 pb-6">
       {/* =====================================================
           HERO / HEADER
       ===================================================== */}
