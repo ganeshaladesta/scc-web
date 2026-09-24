@@ -729,15 +729,52 @@ function MasterShell({
 }) {
   return (
     <div className="space-y-4">
-      <SearchInput value={query} onChange={setQuery} />
-      <Button type="button" className="h-11 w-full rounded-xl" onClick={onAdd}>
+      <SearchInput
+        value={query}
+        onChange={setQuery}
+      />
+
+      <Button
+        type="button"
+        className="h-11 w-full rounded-xl"
+        onClick={onAdd}
+      >
         Tambah
       </Button>
+
+      {/* Empty state hanya untuk tampilan list */}
       {empty ? (
-        <EmptyState title="Tidak ada data" description="Tambah data master atau ubah kata kunci pencarian." />
-      ) : (
-        <div className="space-y-3">{children}</div>
-      )}
+        <EmptyState
+          title="Tidak ada data"
+          description="Belum ada data. Tekan Tambah untuk membuat data baru."
+        />
+      ) : null}
+
+      {/* 
+        children TETAP dirender.
+        Ini penting karena Dialog Tambah berada
+        di dalam children.
+      */}
+      <div
+        className={
+          empty
+            ? "hidden"
+            : "space-y-3"
+        }
+      >
+        {children}
+      </div>
+
+      {/* 
+        Saat empty, children tetap harus mounted
+        supaya Dialog tetap bisa dibuka.
+        Dialog Radix akan portal ke body.
+      */}
+      {empty ? (
+        <div className="hidden">
+          {children}
+        </div>
+      ) : null}
     </div>
   );
 }
