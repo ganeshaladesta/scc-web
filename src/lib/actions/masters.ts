@@ -38,7 +38,7 @@ export async function upsertWilayah(input: unknown): Promise<MasterActionResult>
     : await supabase.from("master_wilayah").insert(payload);
 
   if (error) return fail(error.message);
-  revalidatePath("/admin");
+  revalidatePath("/admin/master");
   return { ok: true };
 }
 
@@ -60,7 +60,7 @@ export async function upsertGedung(input: unknown): Promise<MasterActionResult> 
     : await supabase.from("master_gedung").insert(payload);
 
   if (error) return fail(error.message);
-  revalidatePath("/admin");
+  revalidatePath("/admin/master");
   return { ok: true };
 }
 
@@ -78,7 +78,7 @@ export async function upsertShift(input: unknown): Promise<MasterActionResult> {
     : await supabase.from("master_shift").insert(payload);
 
   if (error) return fail(error.message);
-  revalidatePath("/admin");
+  revalidatePath("/admin/master");
   return { ok: true };
 }
 
@@ -96,7 +96,7 @@ export async function upsertKorsec(input: unknown): Promise<MasterActionResult> 
     : await supabase.from("master_korsec").insert(payload);
 
   if (error) return fail(error.message);
-  revalidatePath("/admin");
+  revalidatePath("/admin/master");
   return { ok: true };
 }
 
@@ -120,7 +120,7 @@ export async function upsertPambi(input: unknown): Promise<MasterActionResult> {
     : await supabase.from("master_pambi_organik").insert(payload);
 
   if (error) return fail(error.message);
-  revalidatePath("/admin");
+  revalidatePath("/admin/master");
   return { ok: true };
 }
 
@@ -144,7 +144,7 @@ export async function upsertContactPerson(input: unknown): Promise<MasterActionR
     : await supabase.from("master_contact_person").insert(payload);
 
   if (error) return fail(error.message);
-  revalidatePath("/admin");
+  revalidatePath("/admin/master");
   return { ok: true };
 }
 
@@ -216,7 +216,7 @@ export async function setMasterActive(
   const supabase = await createServerSupabaseClient();
   const { error } = await supabase.from(table).update({ active }).eq("id", id);
   if (error) return fail(error.message);
-  revalidatePath("/admin");
+  revalidatePath("/admin/master");
   return { ok: true };
 }
 
