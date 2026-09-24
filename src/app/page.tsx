@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -7,7 +8,6 @@ import {
   Database,
   Megaphone,
   Settings2,
-  ShieldCheck,
   Users,
 } from "lucide-react";
 
@@ -62,7 +62,7 @@ function MenuCard({
   return (
     <Link
       href={href}
-      className="group block rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1B4F9C]"
+      className="group block focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1B4F9C]"
     >
       <div
         className={`relative overflow-hidden rounded-2xl border bg-white p-5 shadow-[0_6px_20px_rgba(11,44,95,0.06)] transition active:scale-[0.99] ${accentStyle.border}`}
@@ -84,7 +84,7 @@ function MenuCard({
             </p>
           </div>
 
-          <div className="absolute right-5 top-5 flex size-8 items-center justify-center rounded-full bg-[#F4F7FB] text-[#0B2C5F] transition group-hover:bg-[#E8EEF8]">
+          <div className="absolute right-5 top-5 flex size-8 items-center justify-center rounded-full bg-[#F4F7FB] text-[#0B2C5F]">
             <ArrowRight className="size-4" />
           </div>
         </div>
@@ -103,6 +103,7 @@ function SectionTitle({
   return (
     <div className="mb-3 flex items-center gap-2">
       <Icon className="size-4 text-[#1B4F9C]" />
+
       <h2 className="text-[11px] font-bold tracking-[0.16em] text-[#58708F]">
         {children}
       </h2>
@@ -122,6 +123,7 @@ function AnnouncementCard() {
           <p className="text-[13px] font-bold text-[#0B2C5F]">
             Pengumuman Terbaru
           </p>
+
           <p className="text-[11px] text-[#7A8AA3]">
             Informasi dari SCC
           </p>
@@ -138,6 +140,7 @@ function AnnouncementCard() {
             <p className="text-[13px] font-semibold text-[#0B2C5F]">
               Belum ada pengumuman
             </p>
+
             <p className="mt-1 text-[12px] leading-5 text-[#718096]">
               Pengumuman operasional akan muncul di sini.
             </p>
@@ -150,65 +153,117 @@ function AnnouncementCard() {
 
 export default async function Home() {
   const user = await requireUser();
+
   const isAdmin = user.role === "SCC_ADMIN";
 
   const displayName =
-    user.fullName?.trim() ||
-    (isAdmin ? "SCC Admin" : "Korsec");
+    user.fullName?.trim() || (isAdmin ? "SCC Admin" : "Korsec");
 
   return (
     <div className="pb-6">
-      {/* HERO */}
-      <section className="relative -mx-4 overflow-hidden rounded-b-[28px] bg-linear-to-br from-[#0B2C5F] via-[#123A73] to-[#1B4F9C] px-5 pb-6 pt-5 text-white shadow-[0_12px_30px_rgba(11,44,95,0.15)]">
-        {/* decorative circles */}
-        <div className="pointer-events-none absolute -right-16 -top-20 size-48 rounded-full border border-white/10" />
-        <div className="pointer-events-none absolute -right-4 top-16 size-24 rounded-full border border-white/10" />
+      {/* =====================================================
+          HERO / HEADER
+      ===================================================== */}
 
-        {/* brand */}
-        <div className="relative flex items-center gap-3">
-          <div className="flex size-10 items-center justify-center rounded-xl bg-white/10 ring-1 ring-white/15">
-            <ShieldCheck className="size-5" />
+      <section className="relative -mx-4 overflow-hidden rounded-b-[30px] bg-linear-to-br from-[#0B2C5F] via-[#123A73] to-[#1B4F9C] px-5 pb-6 pt-5 text-white shadow-[0_12px_30px_rgba(11,44,95,0.15)]">
+        {/* Decorative circles */}
+        <div className="pointer-events-none absolute -right-20 -top-24 size-56 rounded-full border border-white/8" />
+
+        <div className="pointer-events-none absolute -right-5 top-20 size-28 rounded-full border border-white/8" />
+
+        {/* =================================================
+            LOGO AREA
+        ================================================= */}
+
+        <div className="relative flex items-center">
+          {/* LOGO BI */}
+
+          <div className="flex h-11 w-[118px] items-center">
+            <Image
+              src="/logo-bi.png"
+              alt="Bank Indonesia"
+              width={118}
+              height={45}
+              priority
+              className="h-auto w-full object-contain object-left"
+            />
           </div>
 
-          <div className="leading-tight">
-            <p className="text-[9px] font-semibold tracking-[0.2em] text-white/60">
-              BANK INDONESIA
-            </p>
-            <p className="text-[12px] font-bold tracking-wide">
-              SECURITY COMMAND CENTER
-            </p>
-          </div>
+          {/* LOGO PAMBI + DLAF + NOTIFICATION */}
 
-          <div className="ml-auto flex size-9 items-center justify-center rounded-full bg-white/10">
-            <Bell className="size-4" />
+          <div className="ml-auto flex items-center gap-2">
+            {/* PAMBI */}
+
+            <div className="flex size-10 items-center justify-center rounded-xl bg-white p-1.5">
+              <Image
+                src="/logo-pambi.png"
+                alt="PAMBI"
+                width={36}
+                height={36}
+                priority
+                className="h-full w-full object-contain"
+              />
+            </div>
+
+            {/* DLAF */}
+
+            <div className="flex size-10 items-center justify-center rounded-xl bg-white p-1.5">
+              <Image
+                src="/logo-dlaf.png"
+                alt="DLAF"
+                width={36}
+                height={36}
+                priority
+                className="h-full w-full object-contain"
+              />
+            </div>
+
+            {/* NOTIFICATION */}
+
+            <div className="ml-1 flex size-9 items-center justify-center rounded-full bg-white/10">
+              <Bell className="size-4" />
+            </div>
           </div>
         </div>
 
-        {/* greeting */}
-        <div className="relative mt-7">
-          <p className="text-sm text-white/65">Halo,</p>
+        {/* Divider */}
 
-          <h1 className="mt-0.5 text-[25px] font-bold tracking-tight">
-            {displayName}
+        <div className="relative mt-4 h-px bg-white/10" />
+
+        {/* =================================================
+            GREETING
+        ================================================= */}
+
+        <div className="relative mt-5">
+          <p className="text-sm text-white/60">
+            Security Command Center
+          </p>
+
+          <h1 className="mt-1 text-[25px] font-bold tracking-tight">
+            Halo, {displayName}
           </h1>
 
-          <p className="mt-1 max-w-[280px] text-[12px] leading-5 text-white/70">
+          <p className="mt-1 max-w-[300px] text-[12px] leading-5 text-white/70">
             {isAdmin
               ? "Kelola data dan konfigurasi operasional SCC."
               : "Pilih data yang ingin kamu laporkan hari ini."}
           </p>
         </div>
 
-        {/* date/time */}
+        {/* =================================================
+            DATE / TIME
+        ================================================= */}
+
         <div className="relative mt-5 flex items-center rounded-2xl border border-white/10 bg-black/10 px-4 py-3.5 backdrop-blur-sm">
           <div className="flex min-w-0 flex-1 items-center gap-3">
-            <CalendarDays className="size-5 shrink-0 text-white/80" />
+            <CalendarDays className="size-5 shrink-0 text-white/75" />
 
             <div className="min-w-0">
-              <p className="truncate text-[12px] font-medium text-white/65">
+              <p className="text-[10px] uppercase tracking-wide text-white/45">
                 Hari ini
               </p>
-              <p className="truncate text-[13px] font-semibold text-white">
+
+              <p className="truncate text-[12px] font-semibold text-white">
                 {formatDate()}
               </p>
             </div>
@@ -217,19 +272,28 @@ export default async function Home() {
           <div className="mx-3 h-9 w-px bg-white/10" />
 
           <div className="text-right">
-            <p className="text-[20px] font-bold leading-none">
+            <p className="text-[19px] font-bold leading-none">
               {formatTime()}
             </p>
-            <p className="mt-1 text-[10px] text-white/60">WIB</p>
+
+            <p className="mt-1 text-[10px] text-white/50">
+              WIB
+            </p>
           </div>
         </div>
       </section>
 
-      {/* CONTENT */}
+      {/* =====================================================
+          MAIN CONTENT
+      ===================================================== */}
+
       <div className="mt-6 space-y-6">
         {isAdmin ? (
           <>
-            {/* ADMIN */}
+            {/* =================================================
+                ADMINISTRATION
+            ================================================= */}
+
             <section>
               <SectionTitle icon={Settings2}>
                 ADMINISTRASI
@@ -254,7 +318,10 @@ export default async function Home() {
               </div>
             </section>
 
-            {/* REPORT */}
+            {/* =================================================
+                REPORT
+            ================================================= */}
+
             <section>
               <SectionTitle icon={ClipboardList}>
                 LAPORAN
@@ -271,7 +338,10 @@ export default async function Home() {
           </>
         ) : (
           <>
-            {/* USER */}
+            {/* =================================================
+                USER / KORSEC
+            ================================================= */}
+
             <section>
               <SectionTitle icon={ClipboardList}>
                 LAPORAN HARIAN
@@ -298,7 +368,10 @@ export default async function Home() {
           </>
         )}
 
-        {/* ANNOUNCEMENT */}
+        {/* =====================================================
+            ANNOUNCEMENT
+        ===================================================== */}
+
         <section>
           <SectionTitle icon={Megaphone}>
             INFORMASI
