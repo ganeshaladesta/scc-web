@@ -97,7 +97,11 @@ export function ActivityForm({ jenis }: { jenis: ActivityJenis }) {
   }
 
   const errors = isGiat ? giatForm.formState.errors : unrasForm.formState.errors;
-  const register = isGiat ? giatForm.register : unrasForm.register;
+
+const register = (name: string) =>
+  isGiat
+    ? giatForm.register(name as keyof GiatMasyarakatValues)
+    : unrasForm.register(name as keyof UnjukRasaValues);
 
   return (
     <form

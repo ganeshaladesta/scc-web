@@ -205,14 +205,48 @@ export type Database = {
           created_by?: string;
         };
         Update: Partial<DailyPersonnelReport>;
-        Relationships: [];
+        Relationships: [
+          {
+            foreignKeyName: "daily_personnel_reports_wilayah_id_fkey";
+            columns: ["wilayah_id"];
+            isOneToOne: false;
+            referencedRelation: "master_wilayah";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "daily_personnel_reports_gedung_id_fkey";
+            columns: ["gedung_id"];
+            isOneToOne: false;
+            referencedRelation: "master_gedung";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "daily_personnel_reports_shift_id_fkey";
+            columns: ["shift_id"];
+            isOneToOne: false;
+            referencedRelation: "master_shift";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "daily_personnel_reports_korsec_id_fkey";
+            columns: ["korsec_id"];
+            isOneToOne: false;
+            referencedRelation: "master_korsec";
+            referencedColumns: ["id"];
+          },
+        ];
       };
       activity_reports: {
         Row: ActivityReport;
-        Insert: Omit<ActivityReport, "id" | "created_at" | "created_by"> & {
+        Insert: Omit<
+          ActivityReport,
+          "id" | "created_at" | "created_by" | "wilayah_id" | "gedung_id"
+        > & {
           id?: string;
           created_at?: string;
           created_by?: string;
+          wilayah_id?: string | null;
+          gedung_id?: string | null;
         };
         Update: Partial<ActivityReport>;
         Relationships: [];
